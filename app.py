@@ -12,7 +12,7 @@ root = Tk()
 root.title("Terrain Generator")
 
 # tiles
-def presetTile(height, color):
+def presetTile(height, color, name):
     t = Tile(tiles)
     t.r.delete(0, 'end')
     t.g.delete(0, 'end')
@@ -24,22 +24,25 @@ def presetTile(height, color):
 
     t.h.delete(0, 'end')
     t.h.insert(0, height)
+
+    t.name.delete(0, 'end')
+    t.name.insert(0, name)
     return t
 
-tiles = Frame(root)
-tiles.pack()
+tiles = Frame(root, width = 500, height=250)
+tiles.grid(row = 1, column=0, rowspan=1)
 addTileButton = Button(tiles, width = 20, text="Create Tile")
-addTileButton.pack()
+addTileButton.grid()
 
 # default tiles
-presetTile(-0.2, [0, 0, 153]).pack() # deep sea
-presetTile(-0.05, [0, 102, 255]).pack() # sea
-presetTile(0, [0, 120, 255]).pack() # shallows
-presetTile(0.04, [237, 201, 175]).pack() # beach
-presetTile(0.25, [96, 128, 56]).pack() # grass
-presetTile(0.3, [70, 105, 56]).pack() # forest
-presetTile(0.4, [102, 102, 102]).pack() # rocks
-presetTile(2, [255, 255, 255]).pack() # snow
+presetTile(-0.2, [0, 0, 153], "Deep Sea").grid() # deep sea
+presetTile(-0.05, [0, 102, 255], "Sea").grid() # sea
+presetTile(0, [0, 120, 255],"Shallow water").grid() # shallows
+presetTile(0.04, [237, 201, 175],"Beach").grid() # beach
+presetTile(0.25, [96, 128, 56],"Grasslands").grid() # grass
+presetTile(0.3, [70, 105, 56],"Jungle").grid() # jung;e
+presetTile(0.4, [102, 102, 102],"Rocks").grid() # rocks
+presetTile(2, [255, 255, 255],"Snow").grid() # snow
 
 
 # App Controls
@@ -99,7 +102,7 @@ zoomEntry.insert(END, '5')
 
 # image display
 display = Label(root)
-display.grid(row=0, column=5, rowspan=2, sticky=NW)
+display.grid(row=0, column=2, rowspan=4, columnspan=10, sticky=NW)
 
 # functions
 
@@ -140,7 +143,7 @@ def saveImage(Event):
 
 def addTile(Event):
     t = Tile(tiles)
-    t.pack()
+    t.grid()
 
 def tilesToDict(Event):
     allTiles = tiles.winfo_children()
