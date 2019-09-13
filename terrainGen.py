@@ -7,11 +7,13 @@ import time
 # max height for each color
 heightToColor = {
         -0.2 : [0, 0, 153], # deep see
-        0 : [0, 102, 255], # shallow sea
-        0.1 : [237, 201, 175], # beach
+        -0.05 : [0, 102, 255], # shallow sea
+        0 : [0, 120, 255], # shores
+        0.04 : [237, 201, 175], # beach
         0.25 : [96, 128, 56], # grass
-        0.35 : [102, 102, 102], # rocks
-        1 : [255, 255, 255] # snow
+        0.3 : [70, 105, 56], # forest
+        0.4 : [102, 102, 102], # rocks
+        2 : [255, 255, 255] # snow
 }
 
 key_list = np.array(list(heightToColor.keys()))

@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import os
-
+from tile import Tile
 image = None
 image_data = None
 
@@ -11,9 +11,41 @@ image_data = None
 root = Tk()
 root.title("Terrain Generator")
 
+# tiles
+def presetTile(height, color):
+    t = Tile(tiles)
+    t.r.delete(0, 'end')
+    t.g.delete(0, 'end')
+    t.b.delete(0, 'end')
+
+    t.r.insert(END, color[0])
+    t.g.insert(END, color[1])
+    t.b.insert(END, color[2])
+
+    t.h.delete(0, 'end')
+    t.h.insert(0, height)
+    return t
+
+tiles = Frame(root)
+tiles.pack()
+addTileButton = Button(tiles, width = 20, text="Create Tile")
+addTileButton.pack()
+
+# default tiles
+presetTile(-0.2, [0, 0, 153]).pack() # deep sea
+presetTile(-0.05, [0, 102, 255]).pack() # sea
+presetTile(0, [0, 120, 255]).pack() # shallows
+presetTile(0.04, [237, 201, 175]).pack() # beach
+presetTile(0.25, [96, 128, 56]).pack() # grass
+presetTile(0.3, [70, 105, 56]).pack() # forest
+presetTile(0.4, [102, 102, 102]).pack() # rocks
+presetTile(2, [255, 255, 255]).pack() # snow
+
+
 # App Controls
-controls = Frame(root, height = 400, width = 300)
+controls = Frame(root)
 controls.grid(row=0, column=0, sticky=NW)
+
 
 genButton = Button(controls, width = 20, text="Create Terrain")
 genButton.grid(row=0, column=0, columnspan = 2, sticky=NW)
@@ -67,7 +99,7 @@ zoomEntry.insert(END, '5')
 
 # image display
 display = Label(root)
-display.grid(row=0, column=1, sticky=NW)
+display.grid(row=0, column=5, rowspan=2, sticky=NW)
 
 # functions
 
@@ -105,8 +137,22 @@ def saveImage(Event):
         path += ".png"
     img.save(path, "PNG")
 
+
+def addTile(Event):
+    t = Tile(tiles)
+    t.pack()
+
+def tilesToDict(Event):
+    allTiles = tiles.winfo_children()
+    for t in allTiles[1:]:
+        print(t.getHeight())
+        print()
+
+tilesToDict(Event)
+
 # bindings
 genButton.bind("<Button-1>", regenerateTerrain)
 saveButton.bind("<Button-1>", saveImage)
+addTileButton.bind("<Button-1>", addTile)
 
 root.mainloop()
