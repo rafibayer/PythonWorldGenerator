@@ -12,6 +12,8 @@ root = Tk()
 root.title("Terrain Generator")
 
 # tiles
+# helper function for quick creation of default Tiles
+# requires parent, max height, color array, and name
 def presetTile(parent, height, color, name):
     t = Tile(parent)
     t.r.delete(0, 'end')
@@ -30,7 +32,7 @@ def presetTile(parent, height, color, name):
     t.configure(borderwidth=3, relief="raised", pady=4)
     return t
 
-tiles = Frame(root, width = 500, height=250)
+tiles = Frame(root, width = 500, height=250, padx = 20, pady=10)
 tiles.grid(row = 0, column=1, sticky=NW)
 addTileButton = Button(tiles, width = 20, text="Create Tile")
 addTileButton.grid(row=0, column=0)
@@ -47,17 +49,20 @@ presetTile(tiles, 2, [255, 255, 255],"Snow").grid() # snow
 
 
 # App Controls
-controls = Frame(root)
+controls = Frame(root, padx = 20, pady=10)
 controls.grid(row=0, column=0, sticky=NW)
 
-
+# generates new terrain
 genButton = Button(controls, width = 20, text="Create Terrain")
 genButton.grid(row=0, column=0, columnspan = 2, sticky=NW)
 
+# saves current terrain to png
 saveButton = Button(controls, width = 20, text="Save Image")
 saveButton.grid(row=1, column=0, columnspan = 2, sticky=NW)
 
 # Terrain Controls
+####################
+#region
 widthLabel = Label(controls, width=10, text="Width: ")
 widthLabel.grid(row=2, column=0)
 widthEntry = Entry(controls, width=10)
@@ -93,6 +98,8 @@ lacunarityLabel.grid(row=7, column=0)
 lacunarityEntry = Entry(controls, width=10)
 lacunarityEntry.grid(row=7, column=1)
 lacunarityEntry.insert(END, '2')
+#endregion
+####################
 
 # Display controls
 zoomLabel = Label(controls, width=10, text="Image Zoom: ")
@@ -155,16 +162,17 @@ def saveImage(Event):
         path += ".png"
     img.save(path, "PNG")
 
-
+# add a new tile to the tile list
 def addTile(Event):
     t = Tile(tiles)
     t.grid()
+    t.configure(borderwidth=3, relief="raised", pady=4)
 
 # bindings
 genButton.bind("<Button-1>", regenerateTerrain)
 saveButton.bind("<Button-1>", saveImage)
 addTileButton.bind("<Button-1>", addTile)
 
-regenerateTerrain(None) # create initial terrain
+regenerateTerrain(None) # create initial terrain using default parameters
 
 root.mainloop()

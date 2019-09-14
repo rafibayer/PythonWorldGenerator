@@ -3,9 +3,13 @@ import tkinter as tk
 
 class Tile(tk.Frame):
 
+    # Tile object, frame with child widgets
+    # Inherits from tk.Frame
+    # requires parent (master)
     def __init__(self, parent, *args, **kwargs):
         super(Tile, self).__init__(parent)
 
+        # Label 
         Label(self, text="Name:").grid(row=0, column=0)
         self.name = Entry(self)
         self.name.grid(row=0, column=1)
@@ -51,6 +55,7 @@ class Tile(tk.Frame):
         color.append(int(self.b.get()))
         return color
 
+    # returns the max height for this tile
     def getHeight(self):
         return float(self.h.get())
         
