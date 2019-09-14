@@ -27,10 +27,11 @@ def presetTile(parent, height, color, name):
 
     t.name.delete(0, 'end')
     t.name.insert(0, name)
+    t.configure(borderwidth=3, relief="raised", pady=4)
     return t
 
 tiles = Frame(root, width = 500, height=250)
-tiles.grid(row = 1, column=0)
+tiles.grid(row = 0, column=1, sticky=NW)
 addTileButton = Button(tiles, width = 20, text="Create Tile")
 addTileButton.grid(row=0, column=0)
 
@@ -101,8 +102,8 @@ zoomEntry.grid(row=8, column=1)
 zoomEntry.insert(END, '5')
 
 # image display
-display = Label(root)
-display.grid(row=0, column=1, sticky=NW)
+display = Label(root, padx=50)
+display.grid(row=0, column=2, sticky=NW)
 
 
 # functions
@@ -136,9 +137,11 @@ def regenerateTerrain(Event):
     lacunarity = float(lacunarityEntry.get())
 
     heightToColor = tilesToDict()
-    print(f"*******************in regenerateTerrain method: {type(heightToColor)}")
 
-    updateImage(terrainGen.generateTerrain(heightToColor, height, width, scale, octaves, persistence, lacunarity))
+    if len(heightToColor.keys()) > 2:
+        updateImage(terrainGen.generateTerrain(heightToColor, height, width, scale, octaves, persistence, lacunarity))
+    else:
+        print("Need at least 3 tiles")
 
 
 # opens save prompt and saves the current terrain as a png image

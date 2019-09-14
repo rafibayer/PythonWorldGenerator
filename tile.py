@@ -13,7 +13,7 @@ class Tile(tk.Frame):
 
 
         # RGB value entries
-        Label(self, text="RBG").grid(row=2, column=0)
+        Label(self, text="RGB").grid(row=2, column=0)
 
         self.r = Entry(self)
         self.r.grid(row=2, column=1)
