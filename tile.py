@@ -4,7 +4,7 @@ import tkinter as tk
 class Tile(tk.Frame):
 
     def __init__(self, parent, *args, **kwargs):
-        super(Tile, self).__init__()
+        super(Tile, self).__init__(parent)
 
         Label(self, text="Name:").grid(row=0, column=0)
         self.name = Entry(self)
@@ -45,11 +45,10 @@ class Tile(tk.Frame):
 
     # returns the RGB color as a 3x1 list for this tile
     def getColor(self):
-        color = [0,0,0]
-        color[0] = int(self.r.get())
-        color[1] = int(self.g.get())
-        color[2] = int(self.b.get())
-
+        color = []
+        color.append(int(self.r.get()))
+        color.append(int(self.g.get()))
+        color.append(int(self.b.get()))
         return color
 
     def getHeight(self):
