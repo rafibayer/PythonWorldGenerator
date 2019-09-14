@@ -19,8 +19,8 @@ def generateTerrain(heightToColorDict, width, height, scale, octaves, persistenc
         global htc
         htc = heightToColorDict
         global key_list
-
         key_list = np.array(sorted(list(heightToColorDict.keys())))
+        
         colorImage = np.zeros((width, height, 3))
         seed = random.randint(0, 50)
 
